@@ -40,8 +40,6 @@ div.stButton > button:first-child {
 </style>""", unsafe_allow_html=True)
 
 with st.sidebar:
-    user_name = st.text_input('User Name :')
-    user_email = st.text_input('User email :')
     user_api_key = st.text_input('User API key :')
     st.success("Click [here](https://emaddar-text-analysis-streamlit-twitter-analysis-u3fg8e.streamlit.app/Twitter) if you don't have an API Key")
 
