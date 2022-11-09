@@ -41,7 +41,7 @@ div.stButton > button:first-child {
 
 with st.sidebar:
     user_api_key = st.text_input('User API key :')
-    st.success("Click [here](https://emaddar-text-analysis-streamlit-twitter-analysis-u3fg8e.streamlit.app/Twitter) if you don't have an API Key")
+    st.success("Click [here](https://emaddar-text-analysis-streamlit-twitter-analysis-u3fg8e.streamlit.app/Get_your_API_Key) if you don't have an API Key")
 
     
     
