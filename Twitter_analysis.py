@@ -212,11 +212,11 @@ if submitted:
 
             st.markdown("___")
             if max_labels == 'Positive':
-                st.markdown(f"### 😃 RESULTS : {max_labels} {max_data} %")
+                st.markdown(f"### 😃 RESULTS : {max_labels} {round(max_data,2)} %")
             elif max_labels == 'Negative':
-                st.markdown(f"### 😡 RESULTS : {max_labels} {max_data} %")
+                st.markdown(f"### 😡 RESULTS : {max_labels} {round(max_data,2)} %")
             else :
-                st.markdown(f"### 😶 RESULTS : {max_labels} {max_data} %")
+                st.markdown(f"### 😶 RESULTS : {max_labels} {round(max_data,2)} %")
             col1, col2 = st.columns(2)
 
 
