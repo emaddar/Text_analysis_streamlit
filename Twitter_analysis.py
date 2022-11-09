@@ -11,7 +11,7 @@ import numpy as np
 import random
 import pandas as pd
 
-
+ 
 def send_mail():
     port = 587  
     smtp_server = "smtp-mail.outlook.com"
