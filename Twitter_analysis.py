@@ -48,7 +48,7 @@ with st.sidebar:
 
 
 st.markdown(""" # Twitter Analysis """)
-st.markdown("This application searches for the latest Tweets in a defined period. Then an AI model analyzes and summarizes the tweets to give the general sentiment on the subject or the person in question.")
+st.info("This application searches for the latest Tweets in a defined period. Then an AI model analyzes and summarizes the tweets to give the general sentiment on the subject or the person in question.")
 
 
 # make any grid with a function
