@@ -385,7 +385,7 @@ if submitted:
                 # st.dataframe(prediction_table)
 
                 # https://github.com/altair-viz/altair/issues/2002
-                range_ = ['green', 'red', 'gray']
+                range_ = ['#FFAA00', 'red', 'gray']
                 chart = alt.Chart(prediction_table, title='Compare results from the same period last year').mark_bar(
                     opacity=1,
                     ).encode(
