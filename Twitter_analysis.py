@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 import pandas as pd
+import altair as alt
+import numpy as np
 
   
 
@@ -153,40 +155,6 @@ if submitted:
 
             # st.write(data)
             # st.write(labels)
-            if compare:
-                df_date_sorted = df.sort_values(['Date'],ascending=True)
-                from_date = df_date_sorted.iloc[0]['Date'].strftime("%Y-%m-%d") # get date of 1st tweet in result
-                to_date = df_date_sorted.iloc[-1]['Date'].strftime("%Y-%m-%d")  # get date of last tweet in result
-                phrase = f"from {from_date} to {to_date}"
-
-                 ### 365 days ago ###
-                from_to_365_days_ago = functions.get_from_to_date_k_days_ago(df,365)
-                from_date_1_year_ago = str(from_to_365_days_ago[0])
-                to_date_1_year_ago = str(from_to_365_days_ago[1])
-                query = re.sub(r'until:\S+', '', query)   # Remove URL
-                query = re.sub(r'since:\S+', '', query)   # Remove mentions
-                query += ' until:'+to_date_1_year_ago
-                query += ' since:'+from_date_1_year_ago
-
-                df_365_days_ago = functions.get_tweets(query, int(limit))
-                df_365_days_ago = df_365_days_ago.sort_values(['Like', 'Retweet','Replay'],ascending=False)
-
-                x_365_days_ago = " ".join(list(df_365_days_ago['Tweet']))
-                text_only_365_days_ago = functions.clean_text(x_365_days_ago)
-
-        #### API 365_days_ago ####
-                
-                api_365_days_ago = functions.get_api(text_only_365_days_ago, lang, user_api_key)
-                
-                if len(api_365_days_ago) == 4 :   # Whet get_api return False then len(get_API) = 1 else len(get_API) = 4
-                    data_365_days_ago = api_365_days_ago[0]
-                    labels_365_days_ago = api_365_days_ago[1]
-                    n_365_days_ago = api_365_days_ago[2]
-                else :
-                    data_365_days_ago = [0, 0, 0]   # This means wa can not do setiment analysis
-                    labels_365_days_ago = ["Positive", "Negative", "Neutral"]
-                
-                phrase_365 = f"from {from_date_1_year_ago} to {to_date_1_year_ago}"
                 
                 # st.write(data_365_days_ago)
                 # st.write(labels_365_days_ago)
@@ -227,19 +195,19 @@ if submitted:
                 fig = plt.figure(figsize=(30,30) , dpi=400) 
                 plt.imshow(wordcloud.recolor(color_func = couleur_blue))
                 plt.axis("off")
-                plt.show()
+                # plt.show()
                 col1.pyplot(fig)
             elif max_labels == "Neutral":
                 fig = plt.figure(figsize=(30,30) , dpi=400) 
                 plt.imshow(wordcloud.recolor(color_func = couleur_grey))
                 plt.axis("off")
-                plt.show()
+                # plt.show()
                 col1.pyplot(fig)
             else : 
                 fig = plt.figure(figsize=(30,30) , dpi=400) 
                 plt.imshow(wordcloud.recolor(color_func = couleur_red))
                 plt.axis("off")
-                plt.show()
+                # plt.show()
                 col1.pyplot(fig)
 
 
@@ -345,5 +313,84 @@ if submitted:
                     file_name=f'Twitter {query}.csv',
                     mime='text/csv',
                 )
-                            
-               
+
+
+
+
+
+            if compare:
+                df_date_sorted = df.sort_values(['Date'],ascending=True)
+                from_date = df_date_sorted.iloc[0]['Date'].strftime("%Y-%m-%d") # get date of 1st tweet in result
+                to_date = df_date_sorted.iloc[-1]['Date'].strftime("%Y-%m-%d")  # get date of last tweet in result
+                phrase = f"from {from_date} to {to_date}"
+
+                 ### 365 days ago ###
+                from_to_365_days_ago = functions.get_from_to_date_k_days_ago(df,365)
+                from_date_1_year_ago = str(from_to_365_days_ago[0])
+                to_date_1_year_ago = str(from_to_365_days_ago[1])
+                query = re.sub(r'until:\S+', '', query)   # Remove URL
+                query = re.sub(r'since:\S+', '', query)   # Remove mentions
+                query += ' until:'+to_date_1_year_ago
+                query += ' since:'+from_date_1_year_ago
+
+                df_365_days_ago = functions.get_tweets(query, int(limit))
+                df_365_days_ago = df_365_days_ago.sort_values(['Like', 'Retweet','Replay'],ascending=False)
+
+                x_365_days_ago = " ".join(list(df_365_days_ago['Tweet']))
+                text_only_365_days_ago = functions.clean_text(x_365_days_ago)
+
+        #### API 365_days_ago ####
+                
+                api_365_days_ago = functions.get_api(text_only_365_days_ago, lang, user_api_key)
+                
+                
+                if len(api_365_days_ago) == 4 :   # Whet get_api return False then len(get_API) = 1 else len(get_API) = 4
+                    data_365_days_ago = api_365_days_ago[0]
+                    labels_365_days_ago = api_365_days_ago[1]
+                    n_365_days_ago = api_365_days_ago[2]
+                else :
+                    data_365_days_ago = [0, 0, 0]   # This means wa can not do setiment analysis
+                    labels_365_days_ago = ["Positive", "Negative", "Neutral"]
+                
+                phrase_365 = f"from {from_date_1_year_ago} to {to_date_1_year_ago}"
+                
+
+                result_df_api = pd.DataFrame({
+                "Period" : [phrase, phrase_365]  ,
+                "Positive" : [data[0], data_365_days_ago[0]],
+                "Negative" :[data[1], data_365_days_ago[1]],
+                "Neutral" : [data[2], data_365_days_ago[2]]
+                })
+
+                st.dataframe(result_df_api)
+                # plt.rcParams["figure.figsize"] = (10,3)
+                fig1 = plt.figure(figsize = (1   ,12))
+                result_df_api.plot(x="Period",
+                                        y=["Positive", "Negative", "Neutral"],
+                                        kind="bar",
+                                        color=[(75/255, 192/255, 192/255, 0.5),
+                                            (255/255, 99/255, 132/255, 0.5),
+                                            (255/255, 206/255, 86/255, 0.5)])
+                plt.xticks(rotation=0)
+                # plt.savefig('./base/static/base/images/copmared_365_days.png',bbox_inches='tight')
+                st.set_option('deprecation.showPyplotGlobalUse', False)
+                st.pyplot()  
+                st.bar_chart(result_df_api)
+
+
+
+                prediction_table = pd.melt(result_df_api, id_vars=['Period'], value_vars=['Positive', 'Negative', 'Neutral'])
+                st.dataframe(prediction_table)
+
+                # https://github.com/altair-viz/altair/issues/2002
+                chart = alt.Chart(prediction_table, title='Compare results from the same period last year').mark_bar(
+                    opacity=1,
+                    ).encode(
+                    column = alt.Column('Period:O', spacing = 50, header = alt.Header(labelOrient = "bottom")),
+                    x =alt.X('variable', sort = ["Positive", "Negative", "Neutral"],  axis=None),
+                    y =alt.Y('value:Q'),
+                    color= alt.Color('variable')
+                ).configure_view(stroke='transparent')
+
+
+
