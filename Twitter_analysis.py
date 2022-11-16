@@ -223,7 +223,7 @@ if submitted:
                 fig = plt.figure(figsize = (8   ,6))
     
                 # creating the bar plot
-                plt.bar(labels, data, color =['green', 'red', 'gray'],
+                plt.bar(labels, data, color =['#4bc0c0', '#ff6384', '#ffce56'],
                         width = 0.7)
                 
                 plt.xlabel(f"This analysis was performed on the {n} first characters \n of the tweets retrieved and classified according \nto the number of likes (from most liked to least liked)")
