@@ -362,25 +362,25 @@ if submitted:
                 "Neutral" : [data[2], data_365_days_ago[2]]
                 })
 
-                st.dataframe(result_df_api)
-                # plt.rcParams["figure.figsize"] = (10,3)
-                fig1 = plt.figure(figsize = (1   ,12))
-                result_df_api.plot(x="Period",
-                                        y=["Positive", "Negative", "Neutral"],
-                                        kind="bar",
-                                        color=[(75/255, 192/255, 192/255, 0.5),
-                                            (255/255, 99/255, 132/255, 0.5),
-                                            (255/255, 206/255, 86/255, 0.5)])
-                plt.xticks(rotation=0)
-                # plt.savefig('./base/static/base/images/copmared_365_days.png',bbox_inches='tight')
-                st.set_option('deprecation.showPyplotGlobalUse', False)
-                st.pyplot()  
-                st.bar_chart(result_df_api)
+                # st.dataframe(result_df_api)
+                # # plt.rcParams["figure.figsize"] = (10,3)
+                # fig1 = plt.figure(figsize = (1   ,12))
+                # result_df_api.plot(x="Period",
+                #                         y=["Positive", "Negative", "Neutral"],
+                #                         kind="bar",
+                #                         color=[(75/255, 192/255, 192/255, 0.5),
+                #                             (255/255, 99/255, 132/255, 0.5),
+                #                             (255/255, 206/255, 86/255, 0.5)])
+                # plt.xticks(rotation=0)
+                # # plt.savefig('./base/static/base/images/copmared_365_days.png',bbox_inches='tight')
+                # st.set_option('deprecation.showPyplotGlobalUse', False)
+                # st.pyplot()  
+                # st.bar_chart(result_df_api)
 
 
 
                 prediction_table = pd.melt(result_df_api, id_vars=['Period'], value_vars=['Positive', 'Negative', 'Neutral'])
-                st.dataframe(prediction_table)
+                # st.dataframe(prediction_table)
 
                 # https://github.com/altair-viz/altair/issues/2002
                 chart = alt.Chart(prediction_table, title='Compare results from the same period last year').mark_bar(
