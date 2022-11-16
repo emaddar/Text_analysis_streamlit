@@ -383,13 +383,14 @@ if submitted:
                 # st.dataframe(prediction_table)
 
                 # https://github.com/altair-viz/altair/issues/2002
+                range_ = ['red', 'green', 'blue']
                 chart = alt.Chart(prediction_table, title='Compare results from the same period last year').mark_bar(
                     opacity=1,
                     ).encode(
                     column = alt.Column('Period:O', spacing = 50, header = alt.Header(labelOrient = "bottom")),
                     x =alt.X('variable', sort = ["Positive", "Negative", "Neutral"],  axis=None),
                     y =alt.Y('value:Q'),
-                    color= alt.Color('variable')
+                    color= alt.Color('variable', scale=alt.Scale(domain=labels, range=range_))
                 ).configure_view(stroke='transparent')
 
 
