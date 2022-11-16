@@ -394,8 +394,8 @@ if submitted:
 
 
                 mygrid5 = make_grid(1,3)
-                mygrid5[0][1].altair_chart(chart, use_container_width=True)
-                mygrid5[0][1].markdown(f"This graphic compares the sentiment analysis in period {phrase} and the period {phrase_365}.  Be carefull, you may not find any Tweet for the same query 365 ago.")
+                mygrid5[0][0].altair_chart(chart, use_container_width=True)
+                mygrid5[0][0].markdown(f"This graphic compares the sentiment analysis in period {phrase} and the period {phrase_365}.  Be carefull, you may not find any Tweet for the same query 365 ago.")
 
 
 
