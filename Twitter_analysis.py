@@ -313,6 +313,8 @@ if submitted:
                     file_name=f'Twitter {query}.csv',
                     mime='text/csv',
                 )
+            
+            st.markdown('___')
 
 
 
