@@ -15,4 +15,4 @@ if click:
             st.write(f"{i} : [{news.text}]({news.find('a')['href']})")
             i += 1
     else : 
-        st.write("Sorry, we can't get last Headlines")
+        st.write("Sorry, we can't get last Headlines, please try againe")
